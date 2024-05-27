@@ -401,7 +401,7 @@ def get_verified_scanner_doctors():
 
 
 @app.route('/scans', methods=['GET'])
-@token_required
+# @token_required
 def get_all_scans():
     # Retrieve query parameters for pagination, filtering, and sorting
     page = int(request.args.get('page', 1))
