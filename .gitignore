@@ -1,2 +1,6 @@
 /__pycache__
-/static/uploads
+/static/uploads/*.obj
+/static/uploads/scans/left/*
+/static/uploads/scans/right/*
+/static/uploads/scans/original/*
+/static/uploads/scans/processed/*
