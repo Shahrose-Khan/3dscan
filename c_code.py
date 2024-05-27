@@ -347,14 +347,19 @@ def get_weekly_report():
 
     # Construct the SQL query to get the weekly report
     query = f"""
+    SELECT day_of_week, scan_count
+    FROM (
         SELECT DAYNAME(timestamp) AS day_of_week,
                COUNT(*) AS scan_count
         FROM scans_history
         WHERE timestamp >= '{start_date}' AND timestamp <= '{end_date}'
-        GROUP BY DAYNAME(timestamp)
-        ORDER BY FIELD(DAYNAME(timestamp), 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
+        GROUP BY day_of_week
+    ) AS subquery
+    ORDER BY FIELD(day_of_week, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
     """
 
+
+    print(query)
     connection = get_db_connection()
     # Execute the query
     with connection.cursor() as cursor:
