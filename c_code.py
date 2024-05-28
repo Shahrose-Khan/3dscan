@@ -452,10 +452,17 @@ def update_measurement(scan_id, leg, part,  new_length, new_circumference):
         elif leg == 'right':
             length_column = 'R_L' + part 
             circumference_column = 'R_C' + part 
+            
         else:
             return jsonify({"message": "Invalid leg specified"}), 400
-
-        cursor.execute(f"UPDATE scans_history SET `{length_column}` = %s, `{circumference_column}` = %s WHERE scan_id = %s", (new_length, new_circumference, scan_id))
+        
+        # Check if part is 'A' or 'Y'
+        if part in ['A', 'Y']:
+            # Update only the circumference column
+            cursor.execute(f"UPDATE scans_history SET `{circumference_column}` = %s WHERE scan_id = %s", (new_circumference, scan_id))
+        else:
+            cursor.execute(f"UPDATE scans_history SET `{length_column}` = %s, `{circumference_column}` = %s WHERE scan_id = %s", (new_length, new_circumference, scan_id))
+        
         connection.commit()
         connection.close()
         return jsonify({"message": f"Successfully updated measurements for scan {scan_id}"}), 200
