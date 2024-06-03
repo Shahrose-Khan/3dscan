@@ -412,7 +412,7 @@ def get_all_scans():
     page = int(request.args.get('page', 1))
     per_page = int(request.args.get('per_page', 100))
     sort_by = request.args.get('sort_by', 'scan_id')
-    sort_order = request.args.get('sort_order', 'asc')
+    sort_order = request.args.get('sort_order', 'desc')
     filter_by = request.args.get('filter_by')
     filter_value = request.args.get('filter_value')
 
