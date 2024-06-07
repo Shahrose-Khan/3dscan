@@ -1102,7 +1102,15 @@ def insert_scan_data():
                                        right_data.get('LD'), right_data.get('LE'), right_data.get('LF'), right_data.get('LG')))
             connection.commit()
         
-        return jsonify({'message': 'Data inserted successfully'}), 200
+        scan_id=0
+        # Insert file information into MySQL table
+        with connection.cursor() as cursor:
+            cursor.execute("SHOW TABLE STATUS LIKE 'scans_history'")
+            table_status = cursor.fetchone()
+            scan_id = table_status[10]-1
+        
+        
+        return get_scan_by_id(scan_id)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     finally:
