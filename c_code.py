@@ -735,7 +735,7 @@ def process_file():
     if 'parameters' in request.form:
         data_array = json.loads(request.form.getlist('parameters')[0])
         height = data_array['maxHeight']
-        processingTime = data_array['processingTime']
+        processingTime = data_array.get('processingTime', 0)
     else:
         height = 0.9
     
