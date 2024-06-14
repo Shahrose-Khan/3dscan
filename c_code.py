@@ -358,8 +358,6 @@ def get_weekly_report():
     ORDER BY FIELD(day_of_week, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
     """
 
-
-    print(query)
     connection = get_db_connection()
     # Execute the query
     with connection.cursor() as cursor:
@@ -736,6 +734,7 @@ def process_file():
     if 'parameters' in request.form:
         data_array = json.loads(request.form.getlist('parameters')[0])
         height = data_array['maxHeight']
+        processingTime = data_array['processingTime']
     else:
         height = 0.9
     
@@ -769,7 +768,7 @@ def process_file():
         'processed_file_path' : processed_file_path,
         'left_file_path': left_file_path,
         'right_file_path': right_file_path,
-        'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        'processing_time': processingTime,
     }
 
     # Generate column names and values for the SQL query
