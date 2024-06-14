@@ -265,6 +265,7 @@ def generate_measure_response(db_record):
             'right_file_path': db_record.get('right_file_path', ''),
             'timestamp': db_record.get('timestamp', ''),
             'is_manual': db_record.get('is_manual', 0),
+            'processing_time': db_record.get('processing_time', 0),
         }
         return measurement_data
     else:
